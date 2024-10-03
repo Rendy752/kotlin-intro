@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Introduction"
         tools:targetApi="31">
         <activity
+            android:name=".ConstraintLayoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoggingAndDebugActivity"
             android:exported="false" />
         <activity
@@ -29,7 +32,7 @@
             android:name=".MoveWithDataActivity"
             android:exported="false" />
         <activity
-            android:name=".MoveActivity"
+            android:name=".LinearLayoutActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -4,12 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +23,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == MoveForResultActivity.RESULT_CODE && result.data != null) {
-            val selectedValue = result.data?.getIntExtra(MoveForResultActivity.EXTRA_SELECTED_VALUE, 0)
+            val selectedValue =
+                result.data?.getIntExtra(MoveForResultActivity.EXTRA_SELECTED_VALUE, 0)
             tvMoveResult.text = "Hasil activity = $selectedValue"
         }
     }
@@ -49,8 +48,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             tvResult.text = result
         }
 
-        val btnMoveActivity: Button = findViewById(R.id.btn_move_activity)
-        btnMoveActivity.setOnClickListener(this)
+        val btnLinearLayoutActivity: Button = findViewById(R.id.btn_linear_layout_activity)
+        btnLinearLayoutActivity.setOnClickListener(this)
+
+        val btnConstraintLayoutActivity: Button = findViewById(R.id.btn_constraint_layout_activity)
+        btnConstraintLayoutActivity.setOnClickListener(this)
 
         val btnMoveWithDataActivity: Button = findViewById(R.id.btn_move_activity_data)
         btnMoveWithDataActivity.setOnClickListener(this)
@@ -81,8 +83,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     @SuppressLint("QueryPermissionsNeeded")
     override fun onClick(view: View?) {
         when (view?.id) {
-            R.id.btn_move_activity -> {
-                val moveIntent = Intent(this@MainActivity, MoveActivity::class.java)
+            R.id.btn_linear_layout_activity -> {
+                val moveIntent = Intent(this@MainActivity, LinearLayoutActivity::class.java)
+                startActivity(moveIntent)
+            }
+
+            R.id.btn_constraint_layout_activity -> {
+                val moveIntent = Intent(this@MainActivity, ConstraintLayoutActivity::class.java)
                 startActivity(moveIntent)
             }
 
@@ -101,7 +108,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     "Palembang"
                 )
 
-                val moveWithObjectIntent = Intent(this@MainActivity, MoveWithObjectActivity::class.java)
+                val moveWithObjectIntent =
+                    Intent(this@MainActivity, MoveWithObjectActivity::class.java)
                 moveWithObjectIntent.putExtra(MoveWithObjectActivity.EXTRA_PERSON, person)
                 startActivity(moveWithObjectIntent)
             }
@@ -134,12 +142,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.btn_move_for_result -> {
-                val moveForResultIntent = Intent(this@MainActivity, MoveForResultActivity::class.java)
+                val moveForResultIntent =
+                    Intent(this@MainActivity, MoveForResultActivity::class.java)
                 resultLauncher.launch(moveForResultIntent)
             }
 
             R.id.btn_logging_and_debug -> {
-                val loggingAndDebugIntent = Intent(this@MainActivity, LoggingAndDebugActivity::class.java)
+                val loggingAndDebugIntent =
+                    Intent(this@MainActivity, LoggingAndDebugActivity::class.java)
                 startActivity(loggingAndDebugIntent)
             }
 
