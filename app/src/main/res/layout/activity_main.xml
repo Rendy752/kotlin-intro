@@ -30,6 +30,13 @@
             android:text="@string/constraint_layout_activity" />
 
         <Button
+            android:id="@+id/btn_recycle_view_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/recycle_view__activity" />
+
+        <Button
             android:id="@+id/btn_move_activity_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

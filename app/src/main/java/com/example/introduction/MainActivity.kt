@@ -54,6 +54,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btnConstraintLayoutActivity: Button = findViewById(R.id.btn_constraint_layout_activity)
         btnConstraintLayoutActivity.setOnClickListener(this)
 
+        val btnRecycleViewActivity: Button = findViewById(R.id.btn_recycle_view_activity)
+        btnRecycleViewActivity.setOnClickListener(this)
+
         val btnMoveWithDataActivity: Button = findViewById(R.id.btn_move_activity_data)
         btnMoveWithDataActivity.setOnClickListener(this)
 
@@ -90,6 +93,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.btn_constraint_layout_activity -> {
                 val moveIntent = Intent(this@MainActivity, ConstraintLayoutActivity::class.java)
+                startActivity(moveIntent)
+            }
+
+            R.id.btn_recycle_view_activity -> {
+                val moveIntent = Intent(this@MainActivity, RecycleViewActivity::class.java)
                 startActivity(moveIntent)
             }
 
