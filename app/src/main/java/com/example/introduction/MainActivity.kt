@@ -6,18 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private lateinit var editWidth: EditText
-    private lateinit var editLength: EditText
-    private lateinit var editHeight: EditText
-    private lateinit var btnCalculate: Button
-    private lateinit var tvResult: TextView
     private lateinit var tvMoveResult: TextView
     private val resultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -29,24 +23,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    companion object {
-        private const val STATE_RESULT = "state_result"
-    }
-
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        editWidth = findViewById(R.id.edit_width)
-        editLength = findViewById(R.id.edit_length)
-        editHeight = findViewById(R.id.edit_height)
-        btnCalculate = findViewById(R.id.btn_calculate)
-        tvResult = findViewById(R.id.tv_result)
-        btnCalculate.setOnClickListener(this)
-        if (savedInstanceState != null) {
-            val result = savedInstanceState.getString(STATE_RESULT)
-            tvResult.text = result
-        }
 
         val btnLinearLayoutActivity: Button = findViewById(R.id.btn_linear_layout_activity)
         btnLinearLayoutActivity.setOnClickListener(this)
@@ -69,6 +49,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         val btnOpenGenshinImpact: Button = findViewById(R.id.btn_open_genshin)
         btnOpenGenshinImpact.setOnClickListener(this)
 
+        val btnCountCube: Button = findViewById(R.id.btn_count_cube)
+        btnCountCube.setOnClickListener(this)
+
         val btnMoveForResult: Button = findViewById(R.id.btn_move_for_result)
         btnMoveForResult.setOnClickListener(this)
 
@@ -76,11 +59,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         val btnLoggingAndDebug: Button = findViewById(R.id.btn_logging_and_debug)
         btnLoggingAndDebug.setOnClickListener(this)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(STATE_RESULT, tvResult.text.toString())
     }
 
     @SuppressLint("QueryPermissionsNeeded")
@@ -149,6 +127,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
 
+            R.id.btn_count_cube -> {
+                val countCubeIntent = Intent(this@MainActivity, CountCubeActivity::class.java)
+                startActivity(countCubeIntent)
+            }
+
             R.id.btn_move_for_result -> {
                 val moveForResultIntent =
                     Intent(this@MainActivity, MoveForResultActivity::class.java)
@@ -159,30 +142,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 val loggingAndDebugIntent =
                     Intent(this@MainActivity, LoggingAndDebugActivity::class.java)
                 startActivity(loggingAndDebugIntent)
-            }
-
-            R.id.btn_calculate -> {
-                val inputLength = editLength.text.toString().trim()
-                val inputWidth = editWidth.text.toString().trim()
-                val inputHeight = editHeight.text.toString().trim()
-                var isEmptyField = false
-                if (inputLength.isEmpty()) {
-                    isEmptyField = true
-                    editLength.error = "Panjang tidak boleh kosong"
-                }
-                if (inputWidth.isEmpty()) {
-                    isEmptyField = true
-                    editWidth.error = "Lebar tidak boleh kosong"
-                }
-                if (inputHeight.isEmpty()) {
-                    isEmptyField = true
-                    editHeight.error = "Tinggi tidak boleh kosong"
-                }
-                if (!isEmptyField) {
-                    val volume =
-                        inputLength.toDouble() * inputWidth.toDouble() * inputHeight.toDouble()
-                    tvResult.text = volume.toString()
-                }
             }
         }
     }
